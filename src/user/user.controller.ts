@@ -19,11 +19,7 @@ export class UserController {
     return await this.userService.update(id, dto);
   }
 
-  @UseGuards(JwtGuard)
-  @Get('id:/token')
-  getToken(@Req() request: Request) {
-    return { token: this.userService.getTokenFromRequest(request) };
-  }
+
 
  
 

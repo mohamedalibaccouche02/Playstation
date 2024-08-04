@@ -61,13 +61,7 @@ export class UserService {
             data: updateData,
         });
     }
-    getTokenFromRequest(request: Request): string {
-        const authHeader = request.headers.authorization;
-        if (!authHeader) throw new UnauthorizedException('Authorization header not found');
-        const [type, token] = authHeader.split(' ');
-        if (type !== 'Bearer') throw new UnauthorizedException('Invalid token type');
-        return token;
-      }
+   
 
 
 

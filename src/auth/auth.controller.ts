@@ -1,11 +1,10 @@
-import { Body, Controller, Post, Request, UseGuards ,Res} from '@nestjs/common';
+import { Body, Controller, Post, Request, UseGuards ,Res,Get,Headers,UnauthorizedException} from '@nestjs/common';
 import { CreateUserDto } from 'src/user/dto/user.dto';
 import { UserService } from 'src/user/user.service';
 import { LoginDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
 import { RefreshJwtGuard } from './guards/refresh.guards';
-import * as cookieParser from 'cookie-parser';
-import { Response } from 'express';
+
 
 @Controller('auth')
 export class AuthController {
@@ -28,10 +27,28 @@ console.log('refreshed');
 }
 
 @Post('logout')
-async logout(@Res() response: Response) {
-  response.clearCookie('token'); // Assuming token is stored in a cookie named 'token'
-  return response.status(200).send({ message: 'Logged out successfully' });
-}
-  
+    async logout(@Headers('authorization') authorization: string) {
+        if (!authorization) {
+            throw new UnauthorizedException('Authorization header is required');
+        }
+        const token = authorization.split(' ')[1]; // Extract the token from the "Bearer <token>" format
+        if (!token) {
+            throw new UnauthorizedException('Token is required');
+        }
+        await this.authService.logout(token);
+        return { message: 'Logged out successfully' };
+    }
+
+@Get('me')
+    async getUserFromToken(@Headers('authorization') authorization: string) {
+        if (!authorization) {
+            throw new UnauthorizedException('Authorization header is required');
+        }
+        const token = authorization.split(' ')[1]; // Extract the token from the "Bearer <token>" format
+        if (!token) {
+            throw new UnauthorizedException('Token is required');
+        }
+        return await this.authService.getUserFromToken(token);
+    }
 
 }
