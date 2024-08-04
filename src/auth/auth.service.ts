@@ -22,11 +22,11 @@ async login(dto:LoginDto ) {
         user,
         backendTokens:{
             accessToken:await this.jwtService.signAsync(payload,{
-                expiresIn:'20s',
+                expiresIn:'1d',
                 secret:process.env.jwtSecretKey,
             }),
             refreshToken:await this.jwtService.signAsync(payload,{
-                expiresIn:'7d',
+                expiresIn:'2d',
                 secret:process.env.jwtRefreshTokenKey,
             }),
         }
@@ -53,11 +53,11 @@ async refreshToken(user:any) {
 
     return {
         accessToken:await this.jwtService.signAsync(payload,{
-            expiresIn:'20s',
+            expiresIn:'1d',
             secret:process.env.jwtSecretKey,
         }),
         refreshToken:await this.jwtService.signAsync(payload,{
-            expiresIn:'7d',
+            expiresIn:'2d',
             secret:process.env.jwtRefreshTokenKey,
         }),
 
