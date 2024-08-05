@@ -14,3 +14,18 @@ model User {
   password String
   role     String @default("User")
 }
+
+model Play {
+  id    Int    @id @default(autoincrement())
+  type  String
+  name  String
+  games Game[]
+}
+
+model Game {
+  id     Int    @id @default(autoincrement())
+  title  String
+  playId Int
+  play   Play   @relation(fields: [playId], references: [id])
+}
+
