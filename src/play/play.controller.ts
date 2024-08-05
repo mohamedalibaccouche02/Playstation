@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { PlayService } from './play.service';
 import { CreatePlayDto } from './dto/play.dto';
 import { UpdatePlayDto } from './dto/update-play.dto';
+import { JwtGuard } from '../auth/guards/jwt.guard';  // Adjust the path according to your structure
 
 @Controller('play')
+@UseGuards(JwtGuard)  // Apply JwtGuard to all routes in this controller
 export class PlayController {
   constructor(private readonly playService: PlayService) {}
 
