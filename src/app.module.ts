@@ -8,9 +8,11 @@ import { PrismaService } from './prisma.service';
 import { SeedModule } from './seed/seed.module';
 import { PlayModule } from './play/play.module';
 import { GameModule } from './game/game.module';
+import { TarifModule } from './tarif/tarif.module';
+import { GainModule } from './gain/gain.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), UserModule, AuthModule, SeedModule, PlayModule, GameModule],
+  imports: [ConfigModule.forRoot(), UserModule, AuthModule, SeedModule, PlayModule, GameModule, TarifModule, GainModule],
   controllers: [AppController],
   providers: [AppService,PrismaService],
 })

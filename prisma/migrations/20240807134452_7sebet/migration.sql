@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Play" ADD COLUMN "liveDuration" INTEGER;
+ALTER TABLE "Play" ADD COLUMN "liveGames" INTEGER;
+ALTER TABLE "Play" ADD COLUMN "totalDuration" INTEGER;
+ALTER TABLE "Play" ADD COLUMN "totalGames" INTEGER;

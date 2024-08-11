@@ -5,6 +5,10 @@ export class UpdateGameDto {
   @IsOptional()
   title?: string;
 
+  @IsString()
+  @IsOptional()
+  image?: string;
+  
   @IsNumber()
   @IsOptional()
   playId?: number;

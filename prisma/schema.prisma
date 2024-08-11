@@ -16,16 +16,42 @@ model User {
 }
 
 model Play {
-  id    Int    @id @default(autoincrement())
-  type  String
-  name  String
-  games Game[]
+  id            Int    @id @default(autoincrement())
+  type          String
+  name          String
+  games         Game[]
 }
 
 model Game {
-  id     Int    @id @default(autoincrement())
-  title  String
-  playId Int
-  play   Play   @relation(fields: [playId], references: [id])
+  id             Int    @id @default(autoincrement())
+  title          String
+  playId         Int
+  image          String?
+  play           Play   @relation(fields: [playId], references: [id])
+  gain           Gain?  // No need to define the relation fields here
 }
 
+model Tarif {
+  id             Int    @id @default(autoincrement())
+  title          String
+  image          String?
+  typematch      String?
+  price          Float    
+  duration       Int 
+  typeplay       String
+  gains          Gain[]  // This relates Tarif to Gain
+}
+
+model Gain {
+  id             Int      @id @default(autoincrement())
+  liveGames      Int?
+  totalGames     Int?
+  liveDuration   Int?
+  totalDuration  Int?
+  gameId         Int      @unique
+  game           Game     @relation(fields: [gameId], references: [id])
+  tarifId        Int
+  tarif          Tarif    @relation(fields: [tarifId], references: [id])
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
